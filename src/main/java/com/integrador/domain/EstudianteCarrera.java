@@ -48,18 +48,18 @@ public class EstudianteCarrera{
 	public EstudianteCarrera() {
 		
 	}
-//	
-//	 public EstudianteCarrera( EstudianteCarreraRequestDto request, CarreraEstudianteId idEstudianteCarrera) {
-//		super();
-//	 	this.idEstudianteCarrera = idEstudianteCarrera;
-//	 	this.estudiante = request.getEstudiante();
-//	 	this.carrera = request.getCarrera();
-//	 	this.fecha_inscripcion = request.getFecha_inscripcion();
-//	 	this.fecha_egreso = request.getFecha_egreso();
-//	 	this.graduado = request.verificarGraduado(request.getFecha_egreso());
-//	 	this.antiguedad = request.getAntiguedad(request.getFecha_inscripcion());
-//	}
-//	
+	
+	 public EstudianteCarrera( EstudianteCarreraRequestDto request, Estudiante e, Carrera c, CarreraEstudianteId idEstudianteCarrera) {
+		super();
+	 	this.idEstudianteCarrera = idEstudianteCarrera;
+	 	this.estudiante = e;
+	 	this.carrera = c;
+	 	this.fecha_inscripcion = request.getFecha_inscripcion();
+	 	this.fecha_egreso = request.getFecha_egreso();
+	 	this.graduado = request.verificarGraduado(request.getFecha_egreso());
+	 	this.antiguedad = request.getAntiguedad(request.getFecha_inscripcion());
+	}
+	
 
 	public boolean isGraduado() {
 		return graduado;

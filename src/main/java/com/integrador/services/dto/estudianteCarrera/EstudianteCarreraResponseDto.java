@@ -21,9 +21,9 @@ public class EstudianteCarreraResponseDto {
 
 	private CarreraEstudianteId idEstudianteCarrera;
 
-	private Estudiante estudiante;
-
-	private Carrera carrera;
+//	private Estudiante estudiante;
+//
+//	private Carrera carrera;
 	
 	private Timestamp fecha_inscripcion;
 	
@@ -35,13 +35,15 @@ public class EstudianteCarreraResponseDto {
 
 	public EstudianteCarreraResponseDto(EstudianteCarrera ec) {
 		this.idEstudianteCarrera = ec.getIdEstudianteCarrera();
-		this.estudiante = ec.getEstudiante();
-		this.carrera = ec.getCarrera();
+//		this.estudiante = ec.getEstudiante();
+//		this.carrera = ec.getCarrera();
 		this.fecha_inscripcion = ec.getAnio_inscripcion();
 		this.fecha_egreso = ec.getAnio_egreso();
 		this.antiguedad = ec.getAntiguedad(fecha_inscripcion);
 		this.graduado = ec.isGraduado();
 	}
+	
+	
 	
 	
 	

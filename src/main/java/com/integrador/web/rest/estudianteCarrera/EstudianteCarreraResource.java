@@ -44,12 +44,12 @@ public class EstudianteCarreraResource {
     public List<EstudianteCarreraResponseDto> carrerasConInscriptosPorCantInsc(){
         return this.estudianteCarreraService.carrerasConInscriptosPorCantInsc();
     }
-//    
-//    @PostMapping("")
-//    public ResponseEntity<EstudianteCarreraResponseDto> save( @RequestBody @Validated EstudianteCarreraRequestDto request ){
-//        final var result = this.estudianteCarreraService.save( request );
-//        return ResponseEntity.accepted().body( result );
-//    }
+    
+    @PostMapping("")
+    public ResponseEntity<EstudianteCarreraResponseDto> save( @RequestBody @Validated EstudianteCarreraRequestDto request ){
+        final var result = this.estudianteCarreraService.save( request );
+        return ResponseEntity.accepted().body( result );
+    }
 	
 
 

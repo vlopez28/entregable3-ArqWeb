@@ -2,6 +2,7 @@ package com.integrador.services;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,20 +35,26 @@ public class EstudianteCarreraService {
 	private CarreraRepository carreraRepository;
 	@Autowired 
 	private EstudianteRepository estRepository;
-//	@Transactional
-//	List<EstudianteCarreraResponseDto> carrerasConInscriptosPorCantInsc(){
-//		return this.estCarreraRepository.carrerasConInscriptosPorCantInsc().stream().map(EstudianteCarreraResponseDto::new).toList();
-//	}
-//	@Transactional
-//    public EstudianteCarreraResponseDto save(EstudianteCarreraRequestDto request){
-//		Estudiante e = estRepository.findById(request.getId_estudiante());
-//		int idEst = request.getId_estudiante();
-//		int idCarr = request.getCarrera().getId_carrera();
-//		CarreraEstudianteId id = new CarreraEstudianteId(idEst, idCarr);
-//		final var estCarr = new EstudianteCarrera( request, id );
-//        final var result = this.estCarreraRepository.save( estCarr );
-//        return new EstudianteCarreraResponseDto(result);
-//    }
+	
+	@Transactional
+	List<CarreraResponseDto> carrerasConInscriptosPorCantInsc(){
+		return this.estCarreraRepository.carrerasConInscriptosPorCantInsc().stream().map(CarreraResponseDto::new).toList();
+	}
+	@Transactional
+    public EstudianteCarreraResponseDto save(EstudianteCarreraRequestDto request){
+		
+		final var e = estRepository.findById(request.getId_estudiante()).orElseThrow(() -> new NotFoundException(String.format("No existe la estudiante con id %s", request.getId_estudiante()) ) );
+		final var c = carreraRepository.findById(request.getId_carrera()).orElseThrow( () -> new NotFoundException(String.format("No existe la carrera con id %s", request.getId_carrera() ) ) );
+		
+		//creo carrEstId
+		int idEst = request.getId_estudiante();
+		int idCarr = request.getId_carrera();
+		CarreraEstudianteId id = new CarreraEstudianteId(idEst, idCarr);
+		
+		EstudianteCarrera estCarr = new EstudianteCarrera(request, e, c, id);
+        final var result = this.estCarreraRepository.save( estCarr );
+        return new EstudianteCarreraResponseDto(result);
+    }
 	
 //	CarreraEstudianteId idEstudianteCarrera, Estudiante estudiante, Carrera carrera,
 //	Timestamp fecha_inscripcion, Timestamp fecha_egreso, int antiguedad, Boolean graduado)

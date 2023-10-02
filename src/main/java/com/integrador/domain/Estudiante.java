@@ -44,6 +44,7 @@ public class Estudiante {
 	private int LU;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
+
 	private Set<EstudianteCarrera> carreras;
 	
 	public Estudiante() {

@@ -2,6 +2,7 @@ package com.integrador.repository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +19,7 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Integer>
 
 
 	@Query ("SELECT e FROM Estudiante e WHERE e.LU = :LU")
-		Estudiante findByLibreta(int LU);
+		Optional<Estudiante> findByLibreta(int LU);
 	
 
 	@Query ("SELECT e FROM Estudiante e WHERE e.genero = :genero")

@@ -37,7 +37,7 @@ public class EstudianteResource {
     }
 
     @GetMapping("/LU/{LU}")
-    public Estudiante findByLibreta( @PathVariable int LU ){
+    public EstudianteResponseDto findByLibreta( @PathVariable int LU ){
         return this.estudianteService.findByLibreta( LU );
     }
 

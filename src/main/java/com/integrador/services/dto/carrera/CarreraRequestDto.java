@@ -8,24 +8,24 @@ import lombok.Data;
 public class CarreraRequestDto {
 
     private String nombre;
-    private int duracion;
+    private int cantidad;
 	
     public String getNombre() {
 		return nombre;
 	}
-	public int getDuracion() {
-		return duracion;
+	public int getCantidad() {
+		return cantidad;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public void setDuracion(int duracion) {
-		this.duracion = duracion;
+	public void setDuracion(int cantidad) {
+		this.cantidad = cantidad;
 	}
-	public CarreraRequestDto(String nombre, int duracion) {
+	public CarreraRequestDto(String nombre, int cantidad) {
 		super();
 		this.nombre = nombre;
-		this.duracion = duracion;
+		this.cantidad = cantidad;
 	}
 
     //verificar funcionamiento de @Data

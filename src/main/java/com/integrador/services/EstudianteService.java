@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.integrador.domain.Estudiante;
 import com.integrador.repository.EstudianteRepository;
@@ -19,18 +20,19 @@ import com.integrador.services.dto.estudiante.EstudianteRequestDto;
 import com.integrador.services.dto.estudiante.EstudianteResponseDto;
 import com.integrador.services.exception.NotFoundException;
 
-import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
-@NoArgsConstructor
 public class EstudianteService{
 	 
 	  
-	 @Autowired 
+
 	 private  EstudianteRepository estudianteRepository;
+	 
+	 public EstudianteService( EstudianteRepository estudianteRepository ) { 
+		 this.estudianteRepository = estudianteRepository;
+	 }
 	
 		 @Transactional
 	    public EstudianteResponseDto save(EstudianteRequestDto request ){
@@ -54,9 +56,10 @@ public class EstudianteService{
 	                .orElseThrow( () -> new NotFoundException("Estudiante", id ) );
 	    }
 	    
-	    @Transactional
-	    public Estudiante findByLibreta( Integer LU ){
-	        return this.estudianteRepository.findByLibreta( LU );
+	    @Transactional( readOnly = true )
+	    public EstudianteResponseDto findByLibreta( Integer LU ){
+	        return this.estudianteRepository.findByLibreta( LU ).map( e -> new EstudianteResponseDto(e) )
+	        		.orElseThrow();
 	    }
 	    
 

@@ -14,16 +14,11 @@ import lombok.Data;
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class EstudianteCarreraRequestDto {
 
-//	private CarreraEstudianteId idEstudianteCarrera;
-//
-//	private Estudiante estudiante;
-//
-//	private Carrera carrera;
+
+	
 	private int id_estudiante;
 	
 	private int id_carrera;
-	
-	
 	
 	private Timestamp fecha_inscripcion;
 	
@@ -32,6 +27,10 @@ public class EstudianteCarreraRequestDto {
 	private int antiguedad;
 	
 	private Boolean graduado;
+//    "estudiante_id": 1,
+//    "carrera_id": 3,
+//    "fecha_inscripcion": "2023-09-24T06:09:19.000+00:00",
+//    "fecha_egreso": null
 	
 	
 	
@@ -48,6 +47,17 @@ public class EstudianteCarreraRequestDto {
 //		this.graduado = graduado;
 //	}
 
+	public EstudianteCarreraRequestDto(int id_estudiante, int id_carrera, Timestamp fecha_inscripcion,
+			Timestamp fecha_egreso) {
+		super();
+		this.id_estudiante = id_estudiante;
+		this.id_carrera = id_carrera;
+		this.fecha_inscripcion = fecha_inscripcion;
+		this.fecha_egreso = fecha_egreso;
+		this.antiguedad = this.getAntiguedad(fecha_inscripcion);
+		this.graduado = this.verificarGraduado(fecha_egreso);
+	}
+
 	public int getId_estudiante() {
 		return id_estudiante;
 	}
@@ -60,32 +70,12 @@ public class EstudianteCarreraRequestDto {
 		return !(anio_egreso == null);
 	}
 	
-//	public CarreraEstudianteId getIdEstudianteCarrera() {
-//		
-//		return idEstudianteCarrera;
-//	}
-//
-//	public Estudiante getEstudiante() {
-//		return estudiante;
-//	}
-//
-//	public Carrera getCarrera() {
-//		return carrera;
-//	}
-	
 	
 
 	public Timestamp getFecha_inscripcion() {
 		return fecha_inscripcion;
 	}
-//
-//	public int getId_estudiante() {
-//		return id_estudiante;
-//	}
-//
-//	public int getId_carrera() {
-//		return id_carrera;
-//	}
+
 
 	public Timestamp getFecha_egreso() {
 		return fecha_egreso;

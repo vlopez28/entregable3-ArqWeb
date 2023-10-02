@@ -13,16 +13,18 @@ import lombok.RequiredArgsConstructor;
 public class CarreraResponseDto {
     private  int id;
     private String nombre;
-    private int duracion;
+    private int cantidad;
+    private int duracion; 
     
     
-//
-//    public CarreraResponseDto(int id, String nombre, int duracion) {
-//		super();
-//		this.id = id;
-//		this.nombre = nombre;
-//		this.duracion = duracion;
-//	}
+
+    public CarreraResponseDto(String nombre, int cantidad) {
+		super();
+		this.nombre = nombre;
+		this.cantidad = cantidad;
+	}
+    
+    
 
 	public CarreraResponseDto(Carrera c){
         this.id= c.getId_carrera();
