@@ -36,10 +36,10 @@ public class EstudianteCarreraService {
 	@Autowired 
 	private EstudianteRepository estRepository;
 	
-	@Transactional
-	List<CarreraResponseDto> carrerasConInscriptosPorCantInsc(){
-		return this.estCarreraRepository.carrerasConInscriptosPorCantInsc().stream().map(CarreraResponseDto::new).toList();
-	}
+//	@Transactional
+//	List<CarreraResponseDto> carrerasConInscriptosPorCantInsc(){
+//		return this.estCarreraRepository.carrerasConInscriptosPorCantInsc().stream().map(CarreraResponseDto::new).toList();
+//	}
 	@Transactional
     public EstudianteCarreraResponseDto save(EstudianteCarreraRequestDto request){
 		
@@ -70,10 +70,10 @@ public class EstudianteCarreraService {
     		.map(EstudianteCarreraResponseDto::new).orElseThrow(()->new NotFoundException("EstudianteCarrera", id));
     }
     
-    @Transactional
-    public List<EstudianteCarreraResponseDto> carrerasConInscriptosPorCantInsc(){
-    	return this.estCarreraRepository.carrerasConInscriptosPorCantInsc();
-    }
-	
+//    @Transactional
+//    public List<EstudianteCarreraResponseDto> carrerasConInscriptosPorCantInsc(){
+//    	return this.estCarreraRepository.carrerasConInscriptosPorCantInsc();
+//    }
+//	
    
 }

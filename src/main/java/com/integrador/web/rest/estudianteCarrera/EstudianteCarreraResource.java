@@ -40,11 +40,11 @@ public class EstudianteCarreraResource {
         return this.estudianteCarreraService.findById(id);
     }
 
-    @GetMapping("/carreraConInscriptos")
-    public List<EstudianteCarreraResponseDto> carrerasConInscriptosPorCantInsc(){
-        return this.estudianteCarreraService.carrerasConInscriptosPorCantInsc();
-    }
-    
+//    @GetMapping("/carreraConInscriptos")
+//    public List<CarreraResponseDto> carrerasConInscriptosPorCantInsc(){
+//        return this.estudianteCarreraService.carrerasConInscriptosPorCantInsc();
+//    }
+//    
     @PostMapping("")
     public ResponseEntity<EstudianteCarreraResponseDto> save( @RequestBody @Validated EstudianteCarreraRequestDto request ){
         final var result = this.estudianteCarreraService.save( request );

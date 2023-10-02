@@ -30,8 +30,8 @@ public interface EstudianteCarreraRepository extends JpaRepository<EstudianteCar
 	
 	
 //	void matricularEstudiante(int idEst, int idCarr, Timestamp fechaInsc, Timestamp fechaEgreso);
-	@Query ("SELECT c.nombre, COUNT(ec.carrera_id) as cant FROM EstudianteCarrera ec JOIN Carrera c ON ec.carrera_id = c.carrera_id GROUP BY ec.carrera_id ORDER BY cant DESC")
-	List<CarreraResponseDto> carrerasConInscriptosPorCantInsc();
+//	@Query ("SELECT c.nombre, COUNT(ec.carrera_id) as cant FROM EstudianteCarrera ec JOIN Carrera c ON ec.carrera_id = c.carrera_id GROUP BY ec.carrera_id ORDER BY cant DESC")
+//	List<CarreraResponseDto> carrerasConInscriptosPorCantInsc();
 	
 	
 //	@Query("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON ec.estudiante = e.estudianteId JOIN Carrera c ON c.carreraId = ec.carrera WHERE e.ciudadResidencia = tandil AND c.carreraId = 2")
