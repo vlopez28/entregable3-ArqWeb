@@ -8,36 +8,21 @@ import org.springframework.data.jpa.repository.Query;
 import com.integrador.domain.Estudiante;
 import com.integrador.domain.EstudianteCarrera;
 import com.integrador.services.dto.carrera.CarreraResponseDto;
+import com.integrador.services.dto.carreraConInscriptos.CarreraConInscriptosResponseDto;
 import com.integrador.services.dto.estudianteCarrera.EstudianteCarreraResponseDto;
+import com.integrador.services.dto.estudiantePorCarreraCiudad.EstudiantesPorCarrerasPorCiudadResponseDto;
+
 
 public interface EstudianteCarreraRepository extends JpaRepository<EstudianteCarrera, Integer> {
+																		
+	
+	@Query("SELECT new com.integrador.services.dto.carreraConInscriptos.CarreraConInscriptosResponseDto (c.nombre, COUNT(c.carreraId)) FROM Carrera c JOIN EstudianteCarrera ec ON ec.carrera.carreraId = c.carreraId GROUP BY c.carreraId ORDER BY COUNT(c.carreraId) DESC")
+	public List<CarreraConInscriptosResponseDto> carrerasConInscriptosPorCantInsc();
+	
+	@Query ("SELECT ec FROM EstudianteCarrera ec JOIN Estudiante e ON e.estudianteId = ec.idEstudianteCarrera.estudianteId WHERE e.ciudadResidencia = :ciudadResidencia AND ec.carrera.nombre = :carrera")
+	public List<EstudianteCarrera> estudiantesPorCarreraFiltradoCiudad(String ciudadResidencia, String carrera);
+	
 
-	
-//
-//	@Override
-//	public void matricularEstudiante(int idEst, int idCarr, Timestamp fechaInsc, Timestamp fechaEgreso) {
-//		Estudiante e = em.find(Estudiante.class, idEst);
-//		Carrera c = em.find(Carrera.class, idCarr);
-//		CarreraEstudianteId claveComp = new CarreraEstudianteId();
-//		EstudianteCarrera estCarr = new EstudianteCarrera(e, c, fechaInsc, fechaEgreso, claveComp);
-//
-//		this.em.getTransaction().begin();
-//		em.persist(estCarr);
-//		this.em.getTransaction().commit();
-//
-//	}
-	
-	
-	
-//	void matricularEstudiante(int idEst, int idCarr, Timestamp fechaInsc, Timestamp fechaEgreso);
-//	@Query ("SELECT c.nombre, COUNT(ec.carrera_id) as cant FROM EstudianteCarrera ec JOIN Carrera c ON ec.carrera_id = c.carrera_id GROUP BY ec.carrera_id ORDER BY cant DESC")
-//	List<CarreraResponseDto> carrerasConInscriptosPorCantInsc();
-	
-	
-//	@Query("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON ec.estudiante = e.estudianteId JOIN Carrera c ON c.carreraId = ec.carrera WHERE e.ciudadResidencia = tandil AND c.carreraId = 2")
-//	List<EstudianteCarrera> estudiantesPorCarreraFiltradoCiudad(int idCarrera, String ciudad);
-//	
-//	
 	@Query( value = "SELECT nombreCarrera, anio, SUM(cantidadInscriptos) AS inscriptos,  SUM(cantidadEgresados) AS egresados "
 			+ "FROM ("
 			+ "(SELECT c.nombre AS nombreCarrera, COUNT(ec.estudiante_id) AS cantidadInscriptos, 0 AS cantidadEgresados,EXTRACT(YEAR FROM ec.fecha_inscripcion) AS anio "
@@ -47,7 +32,7 @@ public interface EstudianteCarreraRepository extends JpaRepository<EstudianteCar
 			+ "FROM estudiante_carrera ec1 JOIN Carrera c1 on c1.carrera_id=ec1.carrera_id "
 			+ "GROUP BY nombreCarrera, anio ) )s " + "WHERE anio IS NOT NULL "
 			+ "GROUP BY nombreCarrera, anio " + "ORDER BY nombreCarrera ,anio", nativeQuery = true)
+
 	List<Object[]> getInforme();
 	
-
 }

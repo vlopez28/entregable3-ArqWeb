@@ -1,25 +1,20 @@
 package com.integrador.services;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Optional;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.integrador.domain.Carrera;
 import com.integrador.domain.CarreraEstudianteId;
-import com.integrador.domain.Estudiante;
 import com.integrador.domain.EstudianteCarrera;
 import com.integrador.repository.CarreraRepository;
 import com.integrador.repository.EstudianteCarreraRepository;
 import com.integrador.repository.EstudianteRepository;
-import com.integrador.services.dto.carrera.CarreraResponseDto;
-import com.integrador.services.dto.estudiante.EstudianteResponseDto;
+import com.integrador.services.dto.Reporte.ReporteResponseDto;
+import com.integrador.services.dto.carreraConInscriptos.CarreraConInscriptosResponseDto;
 import com.integrador.services.dto.estudianteCarrera.EstudianteCarreraRequestDto;
 import com.integrador.services.dto.estudianteCarrera.EstudianteCarreraResponseDto;
+import com.integrador.services.dto.estudiantePorCarreraCiudad.EstudiantesPorCarrerasPorCiudadResponseDto;
 import com.integrador.services.exception.NotFoundException;
-
 import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -29,24 +24,31 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class EstudianteCarreraService {
 	
-	@Autowired 
+	@Autowired
 	private EstudianteCarreraRepository estCarreraRepository;
-	@Autowired 
+	@Autowired
 	private CarreraRepository carreraRepository;
-	@Autowired 
+	@Autowired
 	private EstudianteRepository estRepository;
+
+	@Transactional
+	public List<EstudiantesPorCarrerasPorCiudadResponseDto> estudiantesPorCarreraFiltradoCiudad(String ciudadResidencia, String carrera){
+		return this.estCarreraRepository.estudiantesPorCarreraFiltradoCiudad(ciudadResidencia, carrera).stream()
+				.map(EstudiantesPorCarrerasPorCiudadResponseDto::new)
+				.toList();
+	}	
 	
-//	@Transactional
-//	List<CarreraResponseDto> carrerasConInscriptosPorCantInsc(){
-//		return this.estCarreraRepository.carrerasConInscriptosPorCantInsc().stream().map(CarreraResponseDto::new).toList();
-//	}
+	@Transactional
+	public List<CarreraConInscriptosResponseDto> carrerasConInscriptosPorCantInsc(){
+		return this.estCarreraRepository.carrerasConInscriptosPorCantInsc();
+	}
+	
 	@Transactional
     public EstudianteCarreraResponseDto save(EstudianteCarreraRequestDto request){
 		
 		final var e = estRepository.findById(request.getId_estudiante()).orElseThrow(() -> new NotFoundException(String.format("No existe la estudiante con id %s", request.getId_estudiante()) ) );
 		final var c = carreraRepository.findById(request.getId_carrera()).orElseThrow( () -> new NotFoundException(String.format("No existe la carrera con id %s", request.getId_carrera() ) ) );
 		
-		//creo carrEstId
 		int idEst = request.getId_estudiante();
 		int idCarr = request.getId_carrera();
 		CarreraEstudianteId id = new CarreraEstudianteId(idEst, idCarr);
@@ -56,8 +58,6 @@ public class EstudianteCarreraService {
         return new EstudianteCarreraResponseDto(result);
     }
 	
-//	CarreraEstudianteId idEstudianteCarrera, Estudiante estudiante, Carrera carrera,
-//	Timestamp fecha_inscripcion, Timestamp fecha_egreso, int antiguedad, Boolean graduado)
 
     @Transactional
     public List<EstudianteCarreraResponseDto> findAll(){
@@ -70,10 +70,9 @@ public class EstudianteCarreraService {
     		.map(EstudianteCarreraResponseDto::new).orElseThrow(()->new NotFoundException("EstudianteCarrera", id));
     }
     
-//    @Transactional
-//    public List<EstudianteCarreraResponseDto> carrerasConInscriptosPorCantInsc(){
-//    	return this.estCarreraRepository.carrerasConInscriptosPorCantInsc();
-//    }
-//	
-   
+    @Transactional
+	public List<ReporteResponseDto> getReporte(){
+	 return this.estCarreraRepository.getInforme().stream().map(ReporteResponseDto::new).toList();
+	}
+
 }

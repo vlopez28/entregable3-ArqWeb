@@ -18,6 +18,7 @@ import com.integrador.repository.EstudianteRepository;
 
 import com.integrador.services.dto.estudiante.EstudianteRequestDto;
 import com.integrador.services.dto.estudiante.EstudianteResponseDto;
+import com.integrador.services.dto.estudiantePorCarreraCiudad.EstudiantesPorCarrerasPorCiudadResponseDto;
 import com.integrador.services.exception.NotFoundException;
 
 import lombok.NoArgsConstructor;
@@ -76,8 +77,7 @@ public class EstudianteService{
 	                .stream().map( EstudianteResponseDto::new ).toList();
 	    }
 	    
-	    
-	    
+	  
 
 	}
 

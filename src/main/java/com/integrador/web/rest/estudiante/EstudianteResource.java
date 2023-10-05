@@ -16,6 +16,7 @@ import com.integrador.domain.Estudiante;
 import com.integrador.services.EstudianteService;
 import com.integrador.services.dto.estudiante.EstudianteRequestDto;
 import com.integrador.services.dto.estudiante.EstudianteResponseDto;
+import com.integrador.services.dto.estudiantePorCarreraCiudad.EstudiantesPorCarrerasPorCiudadResponseDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -61,7 +62,7 @@ public class EstudianteResource {
     }
 	
 	
-	
+  
 	
 	
 	
