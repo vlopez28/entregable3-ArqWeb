@@ -1,5 +1,5 @@
 Ejercicio Integrador
-Tome como punto de partida el ejercicio integrador del TP2
+Tomamos como punto de partida el ejercicio integrador del TP2
 Agregamos carpeta de tp2 como punto de partida, se debe correr el main de la misma, para poder poblar la base de datos.
 
 1) Considere el diseño de un registro de estudiantes, con la siguiente información: nombres,
